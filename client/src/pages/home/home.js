@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
+import Jumbotron from '../../components/Jumbotron';
+import { Col, Row, Container } from '../../components/Grid';
 
-class home extends Component {
+class Home extends Component {
   /*state = {
     articles: [],
     queryTerm: '',
@@ -10,9 +12,21 @@ class home extends Component {
 
   render() {
     return (
-      <h1> HOME </h1>
-      )
+      <Row>
+          <Col size="md-3">
+            <Jumbotron>
+              <h2>Folders</h2>
+            </Jumbotron>
+          </Col>
+          <Col size="md-9">
+            <Jumbotron>
+              <h1>Tasks</h1>
+            </Jumbotron>
+          </Col>
+        </Row>
+      
+      );
   }
 }
 
-export default home;
+export default Home;

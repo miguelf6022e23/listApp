@@ -1,11 +1,15 @@
 import React from 'react';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
-import home from './pages/home';
+import Home from './pages/Home';
+import {Container} from './components/Grid'
+import Banner from './components/Banner/Banner.js';
 
 const App = () => (
   <Router>
-        <Route exact path="/" component={home} />
-    
+  	<Container>
+	  	<Banner />
+	    <Route exact path="/" component={Home} />
+    </Container>
   </Router>
 );
 
