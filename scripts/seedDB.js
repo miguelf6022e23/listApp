@@ -15,14 +15,14 @@ const taskSeed = [
   {
     name: "Do the thing",
     description: "just do it",
-    deadline: new Date(Date.now()),
+    deadline: new Date(2018,8,8),
     priority: 1,
     completed: false
   },
   {
     name: "Laundry",
     description: "",
-    deadline: new Date(Date.now()),
+    deadline: new Date(2019,9,20),
     priority: 2,
     completed: false
   }

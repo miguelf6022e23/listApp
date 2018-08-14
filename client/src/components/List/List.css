@@ -1,0 +1,51 @@
+.list-overflow-container {
+  overflow-y: auto;
+  margin-bottom:15px;
+}
+
+.list-overflow-container ul {
+  margin: 0;
+}
+
+.list-overflow-container li {
+  margin-top:5px;
+  border: 3px #DDDDDD solid;
+  border-radius: 10px;
+}
+
+.list-overflow-container li * {
+  cursor: pointer;
+}
+
+.list-overflow-container li a {
+  color: #2A878C;
+}
+
+.list-overflow-container li div span {
+  padding-right: 20%
+}
+
+.list-overflow-container li div:first-child {
+  margin-left:0px;
+  padding: 0px;
+}
+
+.list-overflow-container li div p {
+  text-indent: 3mm;
+  position: ;
+  display: inline-block;
+  width: 80%;
+  margin: 0px;
+}
+
+.edit-btn{
+  position: absolute;
+  top: 0;
+  right: 0;
+}
+
+.complete-btn{
+  position: absolute;
+  bottom: 0;
+  right: 0;
+}
