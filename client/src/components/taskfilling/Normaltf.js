@@ -17,11 +17,5 @@ export const Normaltf = ({ name, deadline, priority, description}) =>
 		<div><b>{description!== '' ? ('Description:'):('')}</b></div>
 		<div>
 		  <p>{description}</p>
-		</div>
-		<button type="button" className="btn btn-default btn-info btn-sm edit-btn">
-		  <span className="glyphicon glyphicon-pencil"></span> 
-		</button>
-		<button type="button" className="btn btn-default btn-sm btn-success complete-btn">
-		  <span className="glyphicon glyphicon-ok"></span> 
-		</button>
+		</div>	
 	</Container>;
