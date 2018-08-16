@@ -113,6 +113,12 @@ class Home extends Component {
     console.log(this.state);
   };
 
+  completeTask = (id) => {
+    API.updateOneTask(id, {completed: true}).then(res => {
+      this.getTasks();
+    })};
+
+
   componentDidMount() {
     this.getTasks()
   };
@@ -172,17 +178,21 @@ class Home extends Component {
                         </div>
                       </ListItem>
                     ):(
-                    <ListItem key={task._id}>
-                      <div>
-                        <Normaltf name={task.name} deadline={task.deadline} priority={task.priority.toString()} description={task.description} taskid={task._id} />
-                        <button type="button" className="btn btn-default btn-info btn-sm edit-btn" taskid={task._id} onClick={() => this.setInEdit(task._id)}>
-                          <span className="glyphicon glyphicon-pencil"></span> 
-                        </button>
-                        <button type="button" className="btn btn-default btn-sm btn-success complete-btn">
-                          <span className="glyphicon glyphicon-ok"></span> 
-                        </button>
-                      </div>
-                    </ListItem>
+                    !task.completed ? (
+                      <ListItem key={task._id}>
+                        <div>
+                          <Normaltf name={task.name} deadline={task.deadline} priority={task.priority.toString()} description={task.description} taskid={task._id} />
+                          <button type="button" className="btn btn-default btn-info btn-sm edit-btn" taskid={task._id} onClick={() => this.setInEdit(task._id)}>
+                            <span className="glyphicon glyphicon-pencil"></span> 
+                          </button>
+                          <button type="button" className="btn btn-default btn-sm btn-success complete-btn" onClick={() =>this.completeTask(task._id)} >
+                            <span className="glyphicon glyphicon-ok"></span> 
+                          </button>
+                        </div>
+                      </ListItem>
+                    ) : (
+                      <div key={task._id}></div>
+                    )
                   )
                 ))} 
               </List>

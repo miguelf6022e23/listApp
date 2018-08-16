@@ -73,3 +73,11 @@
 #newPriority{
   width: 40px;
 }
+
+#inEditDeadline{
+  width: 85px;
+}
+
+#inEditPriority{
+  width: 40px;
+}
