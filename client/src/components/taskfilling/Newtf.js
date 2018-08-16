@@ -12,11 +12,7 @@ export const Newtf = () =>
 		  </span>
 		  
 		  <span><b>Priority:</b>
-		  	<select id='newPriority'> 
-		  		<option value='1'>1</option>
-		  		<option value='2' selected="selected">2</option>
-		  		<option value='3'>3</option>
-		  	</select>
+		  	<input type='text' placeholder='1-3' id='newPriority' />
 		  </span>
 		
 		</div>
@@ -25,9 +21,5 @@ export const Newtf = () =>
 		<div>
 		  <textarea rows='4' cols='40' id='newDescription' />
 		</div>
-		<span><b>Priority:</b><input type='text' placeholder='1-3' id='newPriority' /></span>
-		<button type="button" type='multiline-text' className="btn btn-default btn-sm btn-success complete-btn">
-		  <span>Submit</span> 
-		</button>
 
 	</Container>;

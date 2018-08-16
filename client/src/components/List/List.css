@@ -1,5 +1,6 @@
 .list-overflow-container {
   overflow-y: auto;
+  overflow-x: hidden;
   margin-bottom:15px;
 }
 
@@ -13,16 +14,14 @@
   border-radius: 10px;
 }
 
-.list-overflow-container li * {
-  cursor: pointer;
-}
-
 .list-overflow-container li a {
   color: #2A878C;
 }
 
 .list-overflow-container li div span {
-  padding-right: 20%
+  padding-right: 20%;
+  display: inline-block;
+  padding-top:2px;
 }
 
 .list-overflow-container li div:first-child {
@@ -40,12 +39,37 @@
 
 .edit-btn{
   position: absolute;
-  top: 0;
-  right: 0;
+  top: 5px;
+  right: 5px;
 }
 
 .complete-btn{
   position: absolute;
-  bottom: 0;
-  right: 0;
+  bottom: 5px;
+  right: 5px;
+}
+
+
+.list-overflow-container li div input {
+  border: 2px #DDDDDD solid;
+  border-radius: 3px;
+  margin-left:5px;
+}
+
+.list-overflow-container li div textarea {
+  border: 2px #DDDDDD solid;
+  border-radius: 3px;
+}
+
+.list-overflow-container li div select {
+  border: 2px #DDDDDD solid;
+  border-radius: 3px;
+}
+
+#newDeadline{
+  width: 85px;
+}
+
+#newPriority{
+  width: 40px;
 }

@@ -1,13 +1,25 @@
 import React, { Component } from 'react';
 import Jumbotron from '../../components/Jumbotron';
-import { Col, Row, Container } from '../../components/Grid';
+import { Col, Row } from '../../components/Grid';
 import API from '../../utils/API';
 import { List, ListItem } from '../../components/List';
+import { Newtf, Inedittf, Normaltf } from '../../components/taskfilling';
 
 class Home extends Component {
   state = {
-    tasks: []
-    
+    tasks: [],
+    inEdit: '',
+    newTask: false,
+    loaded:false,
+    newName: '',
+    newDeadline: '',
+    newPriority: '',
+    newDescription: '',
+    inEditName: '',
+    inEditDeadline: '',
+    inEditPriority: '',
+    inEditDescription: ''
+
   };
 
   getTasks = () => {
@@ -15,15 +27,95 @@ class Home extends Component {
       .then(res => {
         console.log(res);
         this.setState({
-          tasks: res.data
+          tasks: res.data,
+          loaded:true
         });
+        console.log(this.state)
       })
       .catch(err => console.log(err));
   };
 
+  newTaskToggle = () => {
+    
+    this.setState({
+          newTask: !this.state.newTask,
+          newName: '',
+          newDeadline: '',
+          newPriority: '',
+          newDescription: ''
+        });
+    this.render();
+  };
+
+  submitNewTask = () => {
+    var taskdata = {
+      name: this.state.newName,
+      deadline: this.state.newDeadline,
+      priority: this.state.newPriority,
+      description: this.state.newDescription
+    }
+    console.log(taskdata);
+    API.createTask(taskdata)
+    .then(res => {
+      this.getTasks();
+      this.newTaskToggle();
+    });
+  };
+
+  setInEdit = (id) => {
+    this.setState({
+          inEdit: id
+        });
+
+    id==''? (
+      this.setState({
+        inEditName: '',
+        inEditDeadline: '',
+        inEditPriority: '',
+        inEditDescription: ''
+      })
+      ):(
+      API.getOneTask(id)
+      .then(res => {
+        this.setState({
+          inEditName: res.data.name,
+          inEditDeadline: res.data.deadline,
+          inEditPriority: res.data.priority,
+          inEditDescription: res.data.description
+        });
+      })
+      )
+
+    console.log(this.state);
+  };
+
+  submitEdits = (id) => {
+    var taskdata = {
+      name: this.state.inEditName,
+      deadline: this.state.inEditDeadline,
+      priority: this.state.inEditPriority,
+      description: this.state.inEditDescription
+    }
+    console.log(taskdata);
+    API.updateOneTask(id, taskdata)
+    .then(res => {
+      this.getTasks();
+      this.setInEdit('');
+    });
+  };
+
+  inputChange = event => {
+    event.preventDefault();
+    console.log(event.target.value+' | '+event.target.id);
+    this.setState({
+      [event.target.id]: event.target.value
+    });
+    console.log(this.state);
+  };
+
   componentDidMount() {
     this.getTasks()
-  }
+  };
 
   render() {
     return (
@@ -37,39 +129,71 @@ class Home extends Component {
             <Jumbotron>
               <h1>Tasks</h1>
             </Jumbotron>
-            <button type="button" class="btn btn-sm">
-                <span class="glyphicon glyphicon-plus"></span> New Task 
-            </button>
+
+                {this.state.newTask ? (
+                  <button type="button" className="btn btn-sm btn-danger" onClick={this.newTaskToggle}>
+                    <span><span className="glyphicon glyphicon-remove"></span> Cancel</span>
+                  </button> 
+                  ):(
+                  <button type="button" className="btn btn-sm" onClick={this.newTaskToggle}>
+                    <span><span className="glyphicon glyphicon-plus"></span> New Task</span>
+                  </button>
+                  )}
+              
+            {this.state.newTask ? (
+            <List>
+              <div onChange={this.inputChange}>
+                <ListItem>
+                  <Newtf />
+                  <button type="button" type='multiline-text' className="btn btn-default btn-sm btn-success complete-btn" onClick={this.submitNewTask}>
+                    <span>Submit</span> 
+                  </button>
+                </ListItem> 
+              </div>
+            </List>
+            ):(
+            <br />
+            )}
+
             {this.state.tasks.length ? (
               <List>
                 {this.state.tasks.map(task => (
-                  <ListItem key={task._id}>
-                    <div>
-                      <h3>{task.name}</h3>
-
-                      <span>
-                        <b>Due:</b>
-                        {' '+task.deadline.split('-')[1]+'/'+task.deadline.split('-')[2].split('T')[0]+'/'+task.deadline.split('-')[0]}
-                      </span>
-
-                      <span><b>Priority:</b>{' '+task.priority}</span>
-                    </div>
-                    <br />
-                    <div><b>{task.description!= '' ? ('Description:'):('')}</b></div>
-                    <div>
-                      <p>{task.description}</p>
-                    </div>
-                    <button type="button" class="btn btn-default btn-info btn-sm edit-btn">
-                      <span class="glyphicon glyphicon-pencil"></span> 
-                    </button>
-                    <button type="button" class="btn btn-default btn-sm btn-success complete-btn">
-                      <span class="glyphicon glyphicon-ok"></span> 
-                    </button>
-                  </ListItem>
+                  this.state.inEdit == task._id ?
+                    (
+                      <ListItem key={task._id}>
+                        <div onChange={this.inputChange}>
+                          <Inedittf name={task.name} deadline={task.deadline} priority={task.priority.toString()} description={task.description} taskid={task._id} />
+                          <button type="button" className="btn btn-default btn-danger btn-sm edit-btn" taskid={task._id} onClick={() => this.setInEdit('')}>
+                            <span className="glyphicon glyphicon-remove"></span> 
+                          </button>
+                          <button type="button" className="btn btn-default btn-sm btn-success complete-btn" onClick={() => this.submitEdits(task._id)}>
+                            <span>Submit changes</span> 
+                          </button>
+                        </div>
+                      </ListItem>
+                    ):(
+                    <ListItem key={task._id}>
+                      <div>
+                        <Normaltf name={task.name} deadline={task.deadline} priority={task.priority.toString()} description={task.description} taskid={task._id} />
+                        <button type="button" className="btn btn-default btn-info btn-sm edit-btn" taskid={task._id} onClick={() => this.setInEdit(task._id)}>
+                          <span className="glyphicon glyphicon-pencil"></span> 
+                        </button>
+                        <button type="button" className="btn btn-default btn-sm btn-success complete-btn">
+                          <span className="glyphicon glyphicon-ok"></span> 
+                        </button>
+                      </div>
+                    </ListItem>
+                  )
                 ))} 
               </List>
             ) : (
-              <h3>No Results to Display</h3>
+              this.state.loaded ? (
+                  <h3>No Tasks To Display</h3>
+                ):(
+                  <h3>Loading tasks</h3>
+                )
+              
+            
             )}
           </Col>
         </Row>

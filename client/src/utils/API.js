@@ -6,10 +6,19 @@ import axios from 'axios';
 
 export default {
   getTasks: function() {
-    return axios.get('/api/saved/');
+    return axios.get('/api/tasks/');
+  },
+  getOneTask: function(id) {
+  	return axios.get('/api/tasks/' + id);
+  },
+  createTask: function(taskData) {
+  	return axios.post('/api/tasks', taskData);
   },
   deleteTasks: function(id) {
-    return axios.delete('/api/saved/' + id);
+    return axios.delete('/api/tasks/' + id);
+  },
+  updateOneTask: function(id, taskData){
+  	return axios.put('/api/tasks/' + id, taskData);
   }
   /*saveArticle: function(articleData) {
     return axios.post('/api/saved', articleData);
