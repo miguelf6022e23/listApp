@@ -52,7 +52,8 @@ class Home extends Component {
       name: this.state.newName,
       deadline: this.state.newDeadline,
       priority: this.state.newPriority,
-      description: this.state.newDescription
+      description: this.state.newDescription,
+      completed: false
     }
     console.log(taskdata);
     API.createTask(taskdata)
