@@ -5,7 +5,7 @@ const taskSchema = new Schema({
   /*title: { type: String, required: true },
   url: { type: String, required: true },
   date: { type: Date }*/
-  name: { type: String, required: true },
+  name: {type: String, required: true },
   description: {type: String},
   deadline: {type: Date},
   priority: {type: Number},

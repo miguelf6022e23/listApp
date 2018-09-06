@@ -1,3 +1,6 @@
 module.exports = {
-  Tasks: require("./task")
+  Tasks: require("./task"),
+  Users: require("./user"),
+  Folders: require("./folder"),
+  Lists: require("./list")
 };

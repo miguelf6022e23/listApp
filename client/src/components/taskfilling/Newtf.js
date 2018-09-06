@@ -4,7 +4,7 @@ import { Container } from '../../components/Grid';
 export const Newtf = () => 
 	<Container>
 		<div>
-		  <h3><input type='text' placeholder='Name here' id='newName' /></h3>
+		  <h3><input type='text' placeholder='Name here' id='newName' defaultValue=''/></h3>
 
 		  <span>
 		    <b>Due:</b>
