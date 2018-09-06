@@ -1,9 +1,9 @@
 import React from 'react';
-import { List, ListItem } from '../../components/List';
-import { Normaltf } from '../../components/taskfilling';
+import { List } from '../../components/List';
+import { NormalTask } from '../../components/NormalTask';
 import {InEditTaskForm} from '../../components/InEditTaskForm';
 
-export const TaskList = ({ tasks, inEdit, inputChange, setInEdit, submitEdits, completeTask, loaded }) =>
+export const TaskList = ({ tasks, inEdit, inputChange, setInEdit, submitEdits, completeTask, loaded, stateDeadline, dateChange }) =>
 	tasks.length ? (
 	  <List>
 	    {tasks.map(task =>
@@ -18,21 +18,22 @@ export const TaskList = ({ tasks, inEdit, inputChange, setInEdit, submitEdits, c
 	          		taskid={task._id}
 	          		submitEdits={submitEdits}
 	          		setInEdit={setInEdit}
+	          		stateDeadline={stateDeadline}
+	          		dateChange={dateChange}
 	          	/>	        
 	        </div>
 	        ):(
 	        !task.completed ? (
-	          <ListItem key={task._id}>
-	            <div>
-	              <Normaltf name={task.name} deadline={task.deadline} priority={task.priority.toString()} description={task.description} taskid={task._id} />
-	              <button type="button" className="btn btn-default btn-info btn-sm edit-btn" taskid={task._id} onClick={() => setInEdit(task._id)}>
-	                <span className="glyphicon glyphicon-pencil"></span> 
-	              </button>
-	              <button type="button" className="btn btn-default btn-sm btn-success complete-btn" onClick={() =>completeTask(task._id)} >
-	                <span className="glyphicon glyphicon-ok"></span> 
-	              </button>
-	            </div>
-	          </ListItem>
+            <NormalTask 
+              	name={task.name} 
+              	deadline={task.deadline} 
+              	priority={task.priority.toString()} 
+              	description={task.description}
+              	setInEdit={setInEdit}
+              	completeTask={completeTask} 
+              	key={task._id}
+              	taskid={task._id}
+            />
 	        ) : (
 	          <div key={task._id}></div>
 	        )

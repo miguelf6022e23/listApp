@@ -2,7 +2,7 @@ import React from 'react';
 import { ListItem } from '../../components/List';
 import {TaskForm} from '../../components/TaskForm'
 
-export const InEditTaskForm = ({ name, deadline, priority, description, submitEdits, setInEdit, taskid}) => 
+export const InEditTaskForm = ({ name, deadline, priority, description, submitEdits, setInEdit, taskid, stateDeadline, dateChange}) => 
 	<ListItem>
 		
 		<TaskForm 
@@ -11,6 +11,8 @@ export const InEditTaskForm = ({ name, deadline, priority, description, submitEd
 			priority={priority}
 			description={description}
 			form='inEdit'
+			stateDeadline={stateDeadline}
+			dateChange={dateChange}
 		/>
 
 		<button type="button" className="btn btn-default btn-danger btn-sm edit-btn" taskid={taskid} onClick={() => setInEdit('')}>

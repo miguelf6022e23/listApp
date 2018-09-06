@@ -1,17 +1,27 @@
 import React from 'react';
+import DatePicker from 'react-datepicker';
+import 'react-datepicker/dist/react-datepicker.css';
 
-export const TaskForm = ({ name, deadline, priority, description, form}) => 
+export const TaskForm = ({ name, deadline, priority, description, form, stateDeadline, dateChange}) => 
 	<div>
 		<div>
 		  <h3><input type='text' placeholder={name==='' ? ('Name here'):(name)} defaultValue={name} id={form+'-name'}  /></h3>
 
 		  <span>
 		    <b>Due:</b>
-		    <input type='text' placeholder='mm/dd/yyyy' id={form+'-deadline'} defaultValue={deadline===''?(''):(' '+deadline.split('-')[1]+'/'+deadline.split('-')[2].split('T')[0]+'/'+deadline.split('-')[0])} />
+		  	<DatePicker 
+			  	id={form+'-deadline'}
+			  	selected={stateDeadline}
+			  	onSelect={dateChange}
+		  	/>
 		  </span>
 
 		  <span><b>Priority:</b>
-		  	<input type='text' placeholder='1-3' id={form+'-priority'}  defaultValue={priority}/>
+		  	<select id={form+'-priority'} defaultValue={priority}>
+		  		<option>1</option>
+		  		<option>2</option>
+		  		<option>3</option>
+		  	</select>
 		  </span>
 		</div>
 

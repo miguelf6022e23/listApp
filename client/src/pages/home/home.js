@@ -5,6 +5,7 @@ import {NewTaskForm} from '../../components/NewTaskForm';
 import NewTaskFormFuncs from '../../components/NewTaskForm/NewTaskFormFuncs'
 import {TaskList} from '../../components/TaskList';
 import TaskListFuncs from '../../components/TaskList/TaskListFuncs'
+import moment from 'moment';
 
 class Home extends Component {
   state = {
@@ -14,13 +15,13 @@ class Home extends Component {
     loaded:false,
     newTaskData:{
       name: '',
-      deadline: '',
+      deadline: moment(),
       priority: '',
       description: ''
     },
     inEditData:{
       name: '',
-      deadline: '',
+      deadline: moment(),
       priority: '',
       description: ''
     }
@@ -39,7 +40,9 @@ class Home extends Component {
   submitEdits   = TaskListFuncs.submitEdits.bind(this);
 
   inputChange = event => {
-    event.preventDefault();
+    if (typeof event.preventDefault === 'function') {
+      event.preventDefault();
+    }
     console.log(event.target.value+' | '+event.target.id);
 
     let obj = this.state[event.target.id.split('-')[0] + 'Data'];
@@ -54,6 +57,19 @@ class Home extends Component {
   componentDidMount() {
     this.getTasks()
   };
+
+  dateChange = (form)=>{
+    return date => {
+      console.log(date);
+      let obj = this.state[form+'Data'];
+      console.log(obj);
+      obj.deadline = date;
+      console.log(obj);
+      this.setState({
+        newTaskData: obj
+      })
+    }
+  }
 
   render() {
     return (
@@ -72,7 +88,9 @@ class Home extends Component {
               newTask={this.state.newTask}  
               newTaskToggle={this.newTaskToggle} 
               inputChange={this.inputChange} 
-              submitNewTask={this.submitNewTask} 
+              submitNewTask={this.submitNewTask}
+              stateDeadline={this.state.newTaskData.deadline} 
+              dateChange={this.dateChange('newTask')}
             />
 
             <TaskList 
@@ -83,6 +101,8 @@ class Home extends Component {
               submitEdits={this.submitEdits}
               completeTask={this.completeTask}
               loaded={this.state.loaded}
+              stateDeadline={this.state.newTaskData.deadline}
+              dateChange={this.dateChange('inEdit')}
             />
 
           </Col>

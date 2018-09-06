@@ -2,7 +2,7 @@ import React from 'react';
 import { List, ListItem } from '../../components/List';
 import {TaskForm} from '../../components/TaskForm'
 
-export const NewTaskForm = ({ newTask, newTaskToggle, inputChange, submitNewTask }) =>
+export const NewTaskForm = ({ newTask, newTaskToggle, inputChange, submitNewTask, stateDeadline, dateChange }) =>
 	newTask ? (
 		<div>
   			<button type="button" className="btn btn-sm btn-danger" onClick={newTaskToggle}>
@@ -14,9 +14,12 @@ export const NewTaskForm = ({ newTask, newTaskToggle, inputChange, submitNewTask
                   <TaskForm 
                     name=''
                     deadline=''
-                    priority=''
+                    priority={1}
                     description=''
                     form='newTask'
+                    stateDeadline={stateDeadline}
+                    inputChange={inputChange}
+                    dateChange={dateChange}
                   />
                   <button type="button" className="btn btn-default btn-sm btn-success complete-btn" onClick={submitNewTask}>
                     <span>Submit</span> 

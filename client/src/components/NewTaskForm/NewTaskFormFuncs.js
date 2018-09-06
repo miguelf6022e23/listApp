@@ -1,4 +1,5 @@
 import API from '../../utils/API';
+import moment from 'moment';
 
 export default {
 	newTaskToggle: function() {
@@ -6,8 +7,8 @@ export default {
 	          newTask: !this.state.newTask,
 	          newTaskData:{
 		          name: '',
-		          deadline: '',
-		          priority: '',
+		          deadline: moment(),
+		          priority: 1,
 		          description: ''
 	          }
 	        });
