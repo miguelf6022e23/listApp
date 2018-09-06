@@ -12,15 +12,18 @@ class Home extends Component {
     inEdit: '',
     newTask: false,
     loaded:false,
-    newName: '',
-    newDeadline: '',
-    newPriority: '',
-    newDescription: '',
-    inEditName: '',
-    inEditDeadline: '',
-    inEditPriority: '',
-    inEditDescription: ''
-
+    newTaskData:{
+      name: '',
+      deadline: '',
+      priority: '',
+      description: ''
+    },
+    inEditData:{
+      name: '',
+      deadline: '',
+      priority: '',
+      description: ''
+    }
   };
 
   newTaskToggle = NewTaskFormFuncs.newTaskToggle.bind(this);
@@ -38,8 +41,12 @@ class Home extends Component {
   inputChange = event => {
     event.preventDefault();
     console.log(event.target.value+' | '+event.target.id);
+
+    let obj = this.state[event.target.id.split('-')[0] + 'Data'];
+    obj[[event.target.id.split('-')[1]]] = event.target.value;
+
     this.setState({
-      [event.target.id]: event.target.value
+      [event.target.id.split('-')[0] + 'Data']: obj
     });
     console.log(this.state);
   };
@@ -66,7 +73,7 @@ class Home extends Component {
               newTaskToggle={this.newTaskToggle} 
               inputChange={this.inputChange} 
               submitNewTask={this.submitNewTask} 
-              />
+            />
 
             <TaskList 
               tasks={this.state.tasks}
@@ -76,7 +83,7 @@ class Home extends Component {
               submitEdits={this.submitEdits}
               completeTask={this.completeTask}
               loaded={this.state.loaded}
-              />
+            />
 
           </Col>
         </Row>

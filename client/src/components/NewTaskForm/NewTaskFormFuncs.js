@@ -4,19 +4,21 @@ export default {
 	newTaskToggle: function() {
 		this.setState({
 	          newTask: !this.state.newTask,
-	          newName: '',
-	          newDeadline: '',
-	          newPriority: '',
-	          newDescription: ''
+	          newTaskData:{
+		          name: '',
+		          deadline: '',
+		          priority: '',
+		          description: ''
+	          }
 	        });
 	    this.render();
 	},
 	submitNewTask: function() {
 		var taskdata = {
-	      name: this.state.newName,
-	      deadline: this.state.newDeadline,
-	      priority: this.state.newPriority,
-	      description: this.state.newDescription,
+	      name: this.state.newTaskData.name,
+	      deadline: this.state.newTaskData.deadline,
+	      priority: this.state.newTaskData.priority,
+	      description: this.state.newTaskData.description,
 	      completed: false
 	    }
 	    console.log(taskdata);

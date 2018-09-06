@@ -1,6 +1,6 @@
 import React from 'react';
 import { List, ListItem } from '../../components/List';
-import {Newtf} from '../../components/taskfilling'
+import {TaskForm} from '../../components/TaskForm'
 
 export const NewTaskForm = ({ newTask, newTaskToggle, inputChange, submitNewTask }) =>
 	newTask ? (
@@ -11,7 +11,13 @@ export const NewTaskForm = ({ newTask, newTaskToggle, inputChange, submitNewTask
             <List>
               <div onChange={inputChange}>
                 <ListItem>
-                  <Newtf />
+                  <TaskForm 
+                    name=''
+                    deadline=''
+                    priority=''
+                    description=''
+                    form='newTask'
+                  />
                   <button type="button" className="btn btn-default btn-sm btn-success complete-btn" onClick={submitNewTask}>
                     <span>Submit</span> 
                   </button>
