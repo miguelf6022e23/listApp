@@ -9,7 +9,8 @@ const taskSchema = new Schema({
   description: {type: String},
   deadline: {type: Date},
   priority: {type: Number},
-  completed: {type: Boolean}
+  completed: {type: Boolean},
+  parentList: {type: Schema.Types.ObjectId, ref: "List"}
 });
 
 const Tasks = mongoose.model("Tasks", taskSchema);

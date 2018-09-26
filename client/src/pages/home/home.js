@@ -101,7 +101,7 @@ class Home extends Component {
               submitEdits={this.submitEdits}
               completeTask={this.completeTask}
               loaded={this.state.loaded}
-              stateDeadline={this.state.newTaskData.deadline}
+              stateDeadline={this.state.inEditData.deadline}
               dateChange={this.dateChange('inEdit')}
             />
 

@@ -3,7 +3,7 @@ const Schema = mongoose.Schema;
 
 const listSchema = new Schema({
   name: {type: String, required: true },
-  childTasks: [{type: Schema.Types.ObjectId, ref: "Task"}]
+  parentFolder: {type: Schema.Types.ObjectId, ref: "Folder"}
 });
 
 const Lists = mongoose.model("Lists", listSchema);

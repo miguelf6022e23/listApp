@@ -4,7 +4,7 @@ const Schema = mongoose.Schema;
 const folderSchema = new Schema({
   name: {type: String, required: true },
   deletable: {type: Boolean},
-  childLists: [{type: Schema.Types.ObjectId, ref: "List"}]
+  parentFolder: {type: Schema.Types.ObjectId, ref: "Folder"}
 });
 
 const Folders = mongoose.model("Folders", folderSchema);

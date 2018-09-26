@@ -1,4 +1,5 @@
 import API from '../../utils/API';
+import moment from 'moment';
 
 export default {
 	getTasks: function() {
@@ -22,7 +23,7 @@ export default {
 		  this.setState({
 		    inEditData: {
 			    name: '',
-			    deadline: '',
+			    deadline: moment(),
 			    priority: '',
 			    description: ''
 		    }
@@ -33,7 +34,7 @@ export default {
 		    this.setState({
 		    	inEditData: {
 			      name: res.data.name,
-			      deadline: res.data.deadline,
+			      deadline: moment(res.data.deadline),
 			      priority: res.data.priority,
 			      description: res.data.description
 		    	}
