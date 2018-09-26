@@ -25,23 +25,35 @@ const userSeed = [
 const folderSeed = [
   {
     name: "migsRoot",
-    deletable: false,
-    childLists: []
+    deletable: false
   },
   {
     name: "gabsRoot",
-    deletable: true,
-    childLists: []
-  }
+    deletable: false
+  }/*,
+  {
+    name: "left",
+    deletable: true
+  },
+  {
+    name: "right",
+    deletable: true
+  },
+  {
+    name: "leftleft",
+    deletable: true
+  },
+  {
+    name: "leftright",
+    deletable: true
+  }*/
 ];
 const listSeed = [
   {
-    name: "migsList",
-    childTasks: []
+    name: "migsList"
   },
   {
-    name: "gabsList",
-    childTasks: []
+    name: "gabsList"
   }
 ];
 const taskSeed = [
@@ -118,35 +130,51 @@ const insertID = (P,field,model) => {
   })
 }
 
+/*const recursiveNaming = (object, model, field) => {
+  console.log(object.name);
+  object[field].map(id => {
+    db[model].findById(id)
+      .then(data => recursiveNaming(data, model, field))
+  })
+}*/
+
 // makes the moval request for each model at the same time
 Promise.all([del('Users'), del('Tasks'), del('Lists'), del('Folders')])
   .then(data=> {
-    
+
   console.log();
   console.log(`Data removed for following models: ${data.slice(0,-1).join(', ')}, and ${data.slice(-1)}`);
 
   Promise.all([ins('Users',userSeed), ins('Tasks',taskSeed), ins('Lists',listSeed), ins('Folders',folderSeed)])
     .then(data => {
-    
+
     console.log();
     console.log(`${data.slice(0,-1).join(', ')}, and ${data.slice(-1)} insterted`);
 
     Promise.all([
       insertID(findTwo('Folders',{name:"migsRoot"},'Users',{username:"migs"}),'rootFolder','Users'),
       insertID(findTwo('Folders',{name:"gabsRoot"},'Users',{username:"gabs"}),'rootFolder','Users'),      
-      insertID(findTwo('Lists',{name:"migsList"},'Folders',{name:"migsRoot"}),'childLists','Folders'),
-      insertID(findTwo('Lists',{name:"gabsList"},'Folders',{name:"gabsRoot"}),'childLists','Folders'),
-      insertID(findTwo('Tasks',{name:"Do the thing"},'Lists',{name:"migsList"}),'childTasks','Lists'),
-      insertID(findTwo('Tasks',{name:"Laundry"},'Lists',{name:"migsList"}),'childTasks','Lists')
+      insertID(findTwo('Folders',{name:"migsRoot"},'Lists',{name:"migsList"}),'parentFolder','Lists'),
+      insertID(findTwo('Folders',{name:"gabsRoot"},'Lists',{name:"gabsList"}),'parentFolder','Lists'),
+      insertID(findTwo('Lists',{name:"migsList"},'Tasks',{name:"Do the thing"}),'parentList','Tasks'),
+      insertID(findTwo('Lists',{name:"migsList"},'Tasks',{name:"Laundry"}),'parentList','Tasks')
+      /*
+      insertID(findTwo('Folders',{name:"left"},'Folders',{name:"migsRoot"}),'childFolders','Folders'),
+      insertID(findTwo('Folders',{name:"right"},'Folders',{name:"migsRoot"}),'childFolders','Folders'),
+      insertID(findTwo('Folders',{name:"leftleft"},'Folders',{name:"left"}),'childFolders','Folders'),
+      insertID(findTwo('Folders',{name:"leftright"},'Folders',{name:"left"}),'childFolders','Folders')*/
       ])
+      .then(data => {
+
+      console.log();
+      console.log(`${data.length} connections made between instances`)
+      /*myFindOne('Folders', {name:'migsRoot'})
         .then(data => {
-
-        console.log();
-        console.log(`${data.length} connections made between instances`)
-        process.exit(0);
-        
-      })
-
+          console.log(data)
+          recursiveNaming(data,'Folders','childFolders')
+      })*/
+      process.exit(0);
     })
-  });
+  })
+});
 
