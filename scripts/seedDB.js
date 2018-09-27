@@ -30,7 +30,7 @@ const folderSeed = [
   {
     name: "gabsRoot",
     deletable: false
-  }/*,
+  },
   {
     name: "left",
     deletable: true
@@ -46,7 +46,7 @@ const folderSeed = [
   {
     name: "leftright",
     deletable: true
-  }*/
+  }
 ];
 const listSeed = [
   {
