@@ -19,8 +19,12 @@ export default {
   },
   updateOneTask: function(id, taskData){
   	return axios.put('/api/tasks/' + id, taskData);
+  },
+
+  getOneUser: function(key, value) {
+    return axios.get('/api/users/'+ key +'/' + value);
+  },
+  createUser: function(userData){
+    return axios.post('/api/users', userData);
   }
-  /*saveArticle: function(articleData) {
-    return axios.post('/api/saved', articleData);
-  }*/
 };

@@ -16,10 +16,7 @@ export default {
 	},
 	submitNewTask: function() {
 		var taskdata = {
-	      name: this.state.newTaskData.name,
-	      deadline: this.state.newTaskData.deadline,
-	      priority: this.state.newTaskData.priority,
-	      description: this.state.newTaskData.description,
+	      ...this.state.newTaskData,
 	      completed: false
 	    }
 	    console.log(taskdata);

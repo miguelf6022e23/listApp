@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import API from '../../utils/API';
 import "./SignUp.css";
 
 console.log(!(/\S+@\S+\.\S+/.test('123@123.123')));
@@ -29,7 +30,15 @@ class SignUp extends Component {
 		}else if (this.state.email === '' || this.state.username === '' || this.state.password === '') {
 			alert('Error: All fields must be filled')
 		} else {
-			window.location.href = '/'
+			let userdata = {
+		      ...this.state
+		    }
+		    console.log(userdata);
+		    API.createUser(userdata)
+		    .then(res => {
+		      alert("acount created.")
+		      window.location.href = '/'
+		    });
 		}
 	};
 
@@ -48,11 +57,11 @@ class SignUp extends Component {
 				</div>
 				<div className='upper-margin'>
 					<span className='label-side'>Password:</span>
-					<input className='input-side' id='password' />
+					<input className='input-side' id='password' type="password" />
 				</div>
 				<div className='upper-margin'>
 					<span className='label-side'>Confirm Password:</span>
-					<input className='input-side' id='confPassword' />
+					<input className='input-side' id='confPassword' type="password" />
 				</div>
 				<div className='text-center upper-margin'>
 					<button type="button" onClick={this.submitInfo} className="btn btn-default btn-sm btn-success text-center">

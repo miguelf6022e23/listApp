@@ -46,10 +46,7 @@ export default {
 	},
 	submitEdits: function(id) {
 		var taskdata = {
-	      name: this.state.inEditData.name,
-	      deadline: this.state.inEditData.deadline,
-	      priority: this.state.inEditData.priority,
-	      description: this.state.inEditData.description
+	      ...this.state.inEditData
 	    }
 	    console.log(taskdata);
 	    API.updateOneTask(id, taskdata)
